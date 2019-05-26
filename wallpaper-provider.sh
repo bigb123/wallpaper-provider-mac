@@ -37,7 +37,7 @@ download_wallpaper() {
   file_name=$(echo "$picture_suburl" | sed -E 's,\/th\?id=OHR\.([A-Za-z0-9_.-]*)&rf=LaDigue_1920x1080\.jpg&pid=hp,\1,')
 
   # Download picture
-  wget --quiet -O- --no-clobber "https://www.bing.com$picture_suburl" > "$file_name"
+  wget --quiet -O "$file_name" --no-clobber "https://www.bing.com$picture_suburl"
 
   # Write title and copyright metadata to picture exif comment
   comment="$(echo $picture_json | jq -r .title) - $(echo $picture_json | jq -r .copyright)"
