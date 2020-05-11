@@ -14,15 +14,21 @@
 WALLPAPER_PATH="/Users/$(whoami)/Pictures/Wallpapers"
 # Add snap binaries to PATH (jq can be installed there) as normally cron has only PATH=/usr/bin
 PATH="$PATH:/usr/local/bin"
+export LC_ALL=en_US.UTF-8
+
+if [ $(wget -q -O- https://www.bing.com &>/dev/null; echo $?) != 0 ]; then 
+  echo "No internet connection"
+  exit 1
+fi
 
 # Check if required binaries exists
 if [ -z $(jq --version) ]; then
-  echo "please install jq"
+  echo "Please install jq"
   exit 1
 fi
 
 if [ -z "$(exiftool -ver)" ]; then
-  echo "please install exiftool"
+  echo "Please install exiftool"
   exit 1
 fi
 
@@ -87,7 +93,7 @@ for wallpaper in $(ls -t *.jpg 2>/dev/null); do
     number_of_current_wallpaper=$(($number_of_current_wallpaper+1))
   else
     # Remove wallpaper
-    mv "$wallpaper" Archive/
+    mv "$wallpaper" Archive/ &>/dev/null
   fi
 done
 
