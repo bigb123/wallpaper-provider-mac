@@ -16,8 +16,9 @@ WALLPAPER_PATH="/Users/$(whoami)/Pictures/Wallpapers"
 PATH="$PATH:/usr/local/bin"
 export LC_ALL=en_US.UTF-8
 
+# Check if bing webpage is reachable
 if [ $(wget -q -O- https://www.bing.com &>/dev/null; echo $?) != 0 ]; then 
-  echo "No internet connection"
+  # echo "No internet connection"
   exit 1
 fi
 
