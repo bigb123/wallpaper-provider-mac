@@ -46,6 +46,11 @@ download_wallpaper() {
   # Download picture
   wget --quiet -O "$file_name" --no-clobber "https://www.bing.com$picture_suburl"
 
+  # There is a problem with setting a comment - sometimes it's there, sometimes not. Let's wait a moment and write a comment to
+  # a file after some time. Maybe it will fully appear after download and all will be good. 
+  
+  sleep 600 # Wait 10 minutes before writing a comment
+
   # Write title and copyright metadata to picture exif comment
   comment="$(echo $picture_json | jq -r .title) - $(echo $picture_json | jq -r .copyright)"
   exiftool -overwrite_original_in_place -comment="$comment" "$WALLPAPER_PATH/$file_name" &>/dev/null
