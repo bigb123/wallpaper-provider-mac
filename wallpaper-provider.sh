@@ -10,8 +10,8 @@
 
 # CONSTS
 #
-# Cron has no $USER env var so I need to use 'whoami' command
-WALLPAPER_PATH="/Users/$(whoami)/Pictures/Wallpapers"
+# Cron has no $USER env var so I have to use 'whoami' command
+WALLPAPERS_PATH="/Users/$(whoami)/Dropbox/Pictures/Wallpapers/Bing_wallpapers"
 # Add snap binaries to PATH (jq can be installed there) as normally cron has only PATH=/usr/bin
 PATH="$PATH:/usr/local/bin"
 export LC_ALL=en_US.UTF-8
@@ -53,18 +53,18 @@ download_wallpaper() {
 
   # Write title and copyright metadata to picture exif comment
   comment="$(echo $picture_json | jq -r .title) - $(echo $picture_json | jq -r .copyright)"
-  exiftool -overwrite_original_in_place -comment="$comment" "$WALLPAPER_PATH/$file_name" &>/dev/null
+  exiftool -overwrite_original_in_place -comment="$comment" "$WALLPAPERS_PATH/$file_name" &>/dev/null
 
   # Write comment to Finder comments section
-  osascript -e 'on run {f, c}' -e 'tell app "Finder" to set comment of (POSIX file f as alias) to c' -e end "$WALLPAPER_PATH/$file_name" "$comment" &>/dev/null
+  osascript -e 'on run {f, c}' -e 'tell app "Finder" to set comment of (POSIX file f as alias) to c' -e end "$WALLPAPERS_PATH/$file_name" "$comment" &>/dev/null
 }
 
 # Check if dir to store wallpapers exists
-if [ ! -d "$WALLPAPER_PATH" ]; then
-    mkdir -p "$WALLPAPER_PATH" || echo "Cannot create path to store wallpapers"
+if [ ! -d "$WALLPAPERS_PATH" ]; then
+    mkdir -p "$WALLPAPERS_PATH" || echo "Cannot create path to store wallpapers"
 
     # Download some latest wallpapers from Bing to provide some randomize.
-    cd "$WALLPAPER_PATH" || exit 1
+    cd "$WALLPAPERS_PATH" || exit 1
     # Bing link parameters explanation:
     # idx - index number of item to display as first. Available values: 0-7.
     # n - number of things to display. Available values: 0-8 (zero displays nothing).
@@ -88,7 +88,7 @@ if [ ! -d "$WALLPAPER_PATH" ]; then
     # done
 fi
 
-cd "$WALLPAPER_PATH" || exit 1
+cd "$WALLPAPERS_PATH" || exit 1
 # Move oldest pictures to Archive and keep just a bunch of them as active.
 number_of_wallpapers_to_keep=30
 number_of_current_wallpaper=0
