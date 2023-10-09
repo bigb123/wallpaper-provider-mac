@@ -11,7 +11,7 @@
 # CONSTS
 #
 # Cron has no $USER env var so I have to use 'whoami' command
-WALLPAPERS_PATH="/Users/$(whoami)/Dropbox/Pictures/Wallpapers/Bing_wallpapers"
+WALLPAPERS_PATH="/Users/spoton/Library/CloudStorage/GoogleDrive-piotr.palka123@gmail.com/My Drive/Pictures/Wallpapers/Bing_wallpapers"
 # Add snap binaries to PATH (jq can be installed there) as normally cron has only PATH=/usr/bin
 PATH="$PATH:/usr/local/bin"
 export LC_ALL=en_US.UTF-8
