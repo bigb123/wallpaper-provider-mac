@@ -49,7 +49,7 @@ download_wallpaper() {
   # There is a problem with setting a comment - sometimes it's there, sometimes not. Let's wait a moment and write a comment to
   # a file after some time. Maybe it will fully appear after download and all will be good. 
   
-  sleep 600 # Wait 10 minutes before writing a comment
+  sleep 60 # Wait 1 minute before writing a comment
 
   # Write title and copyright metadata to picture exif comment
   comment="$(echo $picture_json | jq -r .title) - $(echo $picture_json | jq -r .copyright)"
